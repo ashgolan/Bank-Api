@@ -1,0 +1,16 @@
+[
+  {
+    "id": 9999,
+    "name": "jane",
+    "lastName": "doe",
+    "uid": "x6xldh",
+    "isActive": true
+  },
+  {
+    "id": 6666,
+    "name": "bob",
+    "lastName": "doe",
+    "uid": "x6x13g",
+    "isActive": true
+  }
+]

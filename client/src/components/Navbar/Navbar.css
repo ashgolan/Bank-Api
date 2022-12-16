@@ -1,0 +1,18 @@
+.nav-bar {
+  background-color: var(--white);
+  height: 4rem;
+  padding: 1rem;
+}
+.nav-bar a {
+  color: var(--pink);
+  text-decoration: none;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+.nav-bar a.active,
+.nav-bar a:hover {
+  color: var(--primary-purple);
+}
+.nav-bar a.active {
+  text-decoration: underline;
+}
