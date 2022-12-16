@@ -51,7 +51,7 @@ export const createTransaction = (transaction) => {
 };
 
 export const transfer = async (transaction) => {
-  const updatedAccount = await withdraw(transaction);
+  const updatedAccount = await withdraw(transaction, "transfer");
   if (!updatedAccount) return -1;
   const findAccount = await account.findById(transaction.accountNumber);
   const findRecepient = await account.findById(transaction.recipient);
@@ -79,7 +79,7 @@ export const addMoney = async (transaction) => {
   return recordTransaction(transaction);
 };
 
-export const withdraw = async (transaction) => {
+export const withdraw = async (transaction, ifTransfer) => {
   const findAccount = await account.findById(transaction.accountNumber);
   const creditAvailable = findAccount.credit - findAccount.usedCredit;
   if (findAccount.cash + creditAvailable >= transaction.amount) {
@@ -103,6 +103,7 @@ export const withdraw = async (transaction) => {
   } else {
     return false;
   }
+  if (ifTransfer === "transfer") return true;
   return recordTransaction(transaction);
 };
 
@@ -113,6 +114,9 @@ export const recordTransaction = async (transactionObj) => {
   return newTransaction;
 };
 
+// addind transfer param to withdrow to check what it will return true or record
+//because we dont want to duplicate records
+// install nonoid from npm for account id
 // change passportID digits validate to < 10 not < 9
 // add recipient account to transfer
 // return recordTransaction(transaction) in the withdrow to record

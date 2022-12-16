@@ -20,7 +20,7 @@ function TransferForm({ setNewTransaction }) {
       onSubmit={(e) => submitHandler(e)}
       className="new-user-card"
     >
-      <div>
+      <div className="input-container-add-user">
         <label htmlFor="accountNumber">account number</label>
         <select name="accountNumber">
           {accounts.map((account) => {
@@ -32,7 +32,7 @@ function TransferForm({ setNewTransaction }) {
           })}
         </select>
       </div>
-      <div>
+      <div className="input-container-add-user">
         <label htmlFor="recipient">recipient</label>
         <select name="recipient">
           {accounts.map((account) => {
@@ -44,7 +44,7 @@ function TransferForm({ setNewTransaction }) {
           })}
         </select>
       </div>
-      <div>
+      <div className="input-container-add-user">
         <label htmlFor="amount">amount</label>
         <input type="text" name="amount" />
       </div>

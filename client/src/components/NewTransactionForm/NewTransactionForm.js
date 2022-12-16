@@ -26,7 +26,7 @@ function NewTransactionForm({ setNewTransaction }) {
       onSubmit={(e) => submitHandler(e)}
       className="new-user-card"
     >
-      <div>
+      <div className="input-container-add-user">
         <label htmlFor="name">account number</label>
         <select ref={selectOption}>
           {accounts.map((account) => {
@@ -38,7 +38,7 @@ function NewTransactionForm({ setNewTransaction }) {
           })}
         </select>
       </div>
-      <div>
+      <div className="input-container-add-user">
         <label htmlFor="amount">amount</label>
         <input ref={amount} type="text" name="amount" />
       </div>

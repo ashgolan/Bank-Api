@@ -1,6 +1,13 @@
 import { Schema, model } from "mongoose";
+import { customAlphabet } from "nanoid";
 import { findUserById } from "../utils.js";
+const nanoid = customAlphabet("1234567890", 6);
+
 const accountSchema = new Schema({
+  _id: {
+    type: String,
+    default: () => nanoid(),
+  },
   owner: {
     type: String,
     required: true,
@@ -36,7 +43,7 @@ const accountSchema = new Schema({
     validate(value) {
       if (value < 0) throw Error("Cash must be a Possitive Number");
     },
-  }
+  },
 });
 
 export const account = model("Account", accountSchema);

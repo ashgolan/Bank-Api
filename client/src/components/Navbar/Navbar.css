@@ -1,11 +1,15 @@
 .nav-bar {
-  background-color: var(--white);
-  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(180, 3, 3);
+  height: 2rem;
   padding: 1rem;
 }
 .nav-bar a {
-  color: var(--pink);
+  color: whitesmoke;
   text-decoration: none;
+  font-size: 1.2rem;
   margin: 1rem;
   padding: 0.5rem;
 }

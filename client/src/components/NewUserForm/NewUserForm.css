@@ -1,0 +1,30 @@
+.new-user-card {
+  border: 2px rgb(78, 75, 75) solid;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 30%;
+  margin: auto;
+}
+.input-container-add-user {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.title-add-user {
+  padding: 0.7rem;
+}
+.blue-btn {
+  padding: 1rem;
+  width: 70%;
+  margin: auto;
+}
+.add-container {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}

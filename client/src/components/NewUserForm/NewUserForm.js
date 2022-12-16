@@ -12,26 +12,34 @@ function NewUserForm({ setNewUser }) {
   };
 
   return (
-    <form
-      ref={myForm}
-      onSubmit={(e) => submitHandler(e)}
-      className="new-user-card"
-    >
-      <div>
-        <label htmlFor="name">enter user name</label>
-        <input type="text" name="name" />
-      </div>
-      <div>
-        <label htmlFor="name">enter user last name</label>
-        <input type="text" name="lastName" />
-      </div>
-      <div>
-        <label htmlFor="name">enter user passport ID</label>
-        <input type="text" name="id" />
-      </div>
+    <div className="add-container">
+      <form
+        ref={myForm}
+        onSubmit={(e) => submitHandler(e)}
+        className="new-user-card"
+      >
+        <div className="input-container-add-user">
+          <label className="title-add-user" htmlFor="name">
+            enter user name
+          </label>
+          <input type="text" name="name" />
+        </div>
+        <div className="input-container-add-user">
+          <label className="title-add-user" htmlFor="name">
+            enter user last name
+          </label>
+          <input type="text" name="lastName" />
+        </div>
+        <div className="input-container-add-user">
+          <label className="title-add-user" htmlFor="name">
+            enter user passport ID
+          </label>
+          <input type="text" name="id" />
+        </div>
 
-      <input type="submit" className="blue-btn" value="save" />
-    </form>
+        <input type="submit" className="blue-btn" value="save" />
+      </form>
+    </div>
   );
 }
 

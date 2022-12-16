@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Table from "../../components/Table/Table";
 import { useHttp } from "../../hooks/use-http";
-
+import "./homepage.css";
 function Homepage({ setData }) {
   const { getData } = useHttp(setData);
 
