@@ -1,11 +1,11 @@
 import React from "react";
 
-function AccountRow({ cash, credit, type, owner, uid, usedCredit }) {
+function AccountRow({ cash, credit, Type, owner, _id, usedCredit }) {
   return (
     <tr>
-      <td>{uid}</td>
+      <td>{_id}</td>
       <td>{owner}</td>
-      <td>{type}</td>
+      <td>{Type}</td>
       <td>{cash}</td>
       <td>{credit}</td>
       <td>{usedCredit}</td>

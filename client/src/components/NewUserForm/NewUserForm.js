@@ -26,15 +26,15 @@ function NewUserForm({ setNewUser }) {
         </div>
         <div className="input-container-add-user">
           <label className="title-add-user" htmlFor="name">
-            enter user last name
+            enter user family
           </label>
-          <input type="text" name="lastName" />
+          <input type="text" name="family" />
         </div>
         <div className="input-container-add-user">
           <label className="title-add-user" htmlFor="name">
             enter user passport ID
           </label>
-          <input type="text" name="id" />
+          <input type="text" name="pasportID" />
         </div>
 
         <input type="submit" className="blue-btn" value="save" />

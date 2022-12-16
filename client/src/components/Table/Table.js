@@ -15,12 +15,12 @@ function Table({ category }) {
       {/* <thead> */}
       {/* </thead> */}
       <tbody>
-        <TitlesRow titles={titles} />
+        <TitlesRow titles={titles} category={category} />
         {dataToDisplay.map((row) => {
           if (category === "users") {
-            return <Row {...row} key={row.uid} />;
+            return <Row {...row} key={row._id} />;
           } else {
-            return <AccountRow {...row} key={row.uid} />;
+            return <AccountRow {...row} key={row._id} />;
           }
         })}
       </tbody>
