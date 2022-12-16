@@ -1,8 +1,10 @@
 import { Schema, model } from "mongoose";
 import { account } from "./Account.model.js";
 const date = new Date().toLocaleDateString();
+const time = new Date().toLocaleTimeString();
 const transactionSchema = new Schema({
   date: { type: String, default: date },
+  time: { type: String, default: time },
   accountNumber: {
     type: String,
     required: true,
@@ -11,7 +13,7 @@ const transactionSchema = new Schema({
     },
   },
   recipient: {
-    type: Number,
+    type: String,
     validate(value) {
       if (!account.findById(value)) throw Error("Account not found!");
     },

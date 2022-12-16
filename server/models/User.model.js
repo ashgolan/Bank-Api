@@ -13,7 +13,7 @@ const userSchema = new Schema({
   pasportID: {
     type: Number,
     validate(value) {
-      if (value.length < 9) throw Error("ID muse be at least 9 digits");
+      if (value.length < 10) throw Error("ID muse be at least 9 digits");
     },
     required: true,
     unique: true,

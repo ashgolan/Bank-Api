@@ -22,6 +22,7 @@ app.use((err, req, res, next) => {
 app.get("", (req, res) => {
   res.write(index);
 });
+
 app.use("/api/bank", bankRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/accounts", accountsRouter);

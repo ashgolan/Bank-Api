@@ -52,14 +52,14 @@ export const createTransaction = (transaction) => {
 
 export const transfer = async (transaction) => {
   const updatedAccount = await withdraw(transaction);
-  console.log(updatedAccount);
   if (!updatedAccount) return -1;
   const findAccount = await account.findById(transaction.accountNumber);
+  const findRecepient = await account.findById(transaction.recipient);
   const findToUpdateAccount = await account.findByIdAndUpdate(
     transaction.recipient,
-    { cash: findAccount.cash + transaction.amount }
+    { cash: findRecepient.cash + transaction.amount }
   );
-  return findToUpdateAccount;
+  return recordTransaction(transaction);
 };
 
 export const addMoney = async (transaction) => {
@@ -103,7 +103,7 @@ export const withdraw = async (transaction) => {
   } else {
     return false;
   }
-  return true;
+  return recordTransaction(transaction);
 };
 
 export const recordTransaction = async (transactionObj) => {
@@ -112,3 +112,8 @@ export const recordTransaction = async (transactionObj) => {
   });
   return newTransaction;
 };
+
+// change passportID digits validate to < 10 not < 9
+// add recipient account to transfer
+// return recordTransaction(transaction) in the withdrow to record
+// adding time in the tranaction model and change passportidto < 10 not 9

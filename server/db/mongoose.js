@@ -7,6 +7,6 @@ const URL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@c
 mongoose.connect(URL, (err, mongoDbInstance) => {
   if (err) throw Error("MongooDb connection Error ! -- " + err);
 
-  const { host, port, name } = mongoDbInstance;
-  console.log({ host, port, name });
+  // const { host, port, name } = mongoDbInstance;
+  // console.log({ host, port, name });
 });
