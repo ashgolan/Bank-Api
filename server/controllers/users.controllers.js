@@ -1,4 +1,4 @@
-import { createUser, loadFromDb, findObj } from "../utils.js";
+import { createUser, loadFromDb } from "../utils.js";
 import { user } from "../models/User.model.js";
 
 export const getAllUsers = async (req, res) => {
@@ -14,8 +14,8 @@ export const addUser = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
-  const foundUser = await findObj(user, req.params.uid);
-  foundUser != -1
+  const foundUser = await user.findById(req.params.id);
+  foundUser
     ? res.status(201).send(foundUser)
     : res.status(401).send("user not found");
 };

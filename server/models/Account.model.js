@@ -36,10 +36,7 @@ const accountSchema = new Schema({
     validate(value) {
       if (value < 0) throw Error("Cash must be a Possitive Number");
     },
-  },
-  uid: {
-    type: Number,
-  },
+  }
 });
 
 export const account = model("Account", accountSchema);

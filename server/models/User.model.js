@@ -31,10 +31,6 @@ const userSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  uid: {
-    type: String,
-    required: true,
-  },
 });
 
 export const user = model("User", userSchema);

@@ -10,6 +10,6 @@ export const usersRouter = Router();
 
 usersRouter.get("", getAllUsers);
 
-usersRouter.get("/:uid", getUser);
+usersRouter.get("/:id", getUser);
 
 usersRouter.post("", addUser);
