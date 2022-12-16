@@ -1,13 +1,13 @@
 import express from "express";
-import { usersRouter } from "./routes/users.route.js";
-import { accountsRouter } from "./routes/accounts.routes.js";
-import { transactionsRouter } from "./routes/transactions.router.js";
-import { bankRouter } from "./routes/bank.routes.js";
+import { usersRouter } from "./server/routes/users.route.js";
+import { accountsRouter } from "./server/routes/accounts.routes.js";
+import { transactionsRouter } from "./server/routes/transactions.router.js";
+import { bankRouter } from "./server/routes/bank.routes.js";
 // import { appRouter } from "./routes/app.routes.js";
-import { index } from "./utils/index.js";
-import "../server/db/mongoose.js";
+import { index } from "./server/utils/index.js";
+import "./server/db/mongoose.js";
 import cors from "cors";
-const PORT = 1234;
+const PORT = process.env.PORT || 3001; // changed
 const app = express();
 
 app.use(express.json());
