@@ -11,13 +11,14 @@ export default function AddUser({ data, setMessage, setData }) {
   const addUser = async (e) => {
     e.preventDefault();
     try {
-      console.log(user);
       setMessage({ status: false, text: "" });
       const newUser = await axios.post(
-        "http://ashgolan-bankapi.onrender.com/api/users"
+        "https://bank-api-xeyd.onrender.com/api/users",
+        user
       );
-
-      setData(newUser);
+      // setData((prev) => {
+      //   return { ...prev, newUser };
+      // });
       setuser({
         name: "",
         family: "",

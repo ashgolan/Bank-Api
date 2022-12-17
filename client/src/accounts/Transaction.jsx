@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import "./Transaction.css";
 export default function Transaction({ data, setData, setMessage }) {
-  console.log(data.usersData.data);
-  const [selectedAccount, setSelectedAccount] = useState();
-  console.log(data.accountsData.data);
-  const accounts = data.accountsData.data.map((clientAccount, index) => {
+  console.log(data);
+  const selectIdAccount = useRef();
+  const [selectedTransactionAccount, setSelectedTransactionAccount] =
+    useState();
+  const accounts = data.data.accounts.map((clientAccount, index) => {
     return (
       <option
         className="inputUserProp"
@@ -19,53 +21,54 @@ export default function Transaction({ data, setData, setMessage }) {
   const selectHandler = (e) => {
     e.preventDefault();
     const id = e.target.selectedOptions[0].value;
-    const account = data.accountsData.find((acc) => acc.id === id);
-    setSelectedAccount(account);
+
+    const filteredTransactions = data.data.transactions.filter(
+      (acc) => acc.accountNumber === id || acc.recipient === id
+    );
+    setSelectedTransactionAccount(filteredTransactions);
   };
   return (
-    <div className="container">
-      <form className="addUser-container" action="">
+    <div className="transaction-container">
+      <form className="transaction-form-container" action="">
         <select
           onChange={(e) => selectHandler(e)}
           className="selectTransaction"
           name=""
           id=""
+          ref={selectIdAccount}
         >
           <option selected defaultValue="בחר חשבון">
             בחר חשבון
           </option>
           {accounts}
         </select>
-        {selectedAccount && (
-          <h4
-            style={{
-              color: "brown",
-              backgroundColor: "yellow",
-              fontSize: "1.5rem",
-              textAlign: "center",
-              marginBottom: "1%",
-            }}
-          >
-            {selectedAccount.cash} :יתרה
-          </h4>
-        )}
         <div className="transaction-container">
-          {selectedAccount &&
-            selectedAccount.transactions.map((tr, index) => {
+          {selectedTransactionAccount && (
+            <div className="transRow">
+              <label>:תאריך</label>
+              <label>:שעה</label>
+              <label style={{ width: "50%" }}>:פעולה</label>
+            </div>
+          )}
+          {selectedTransactionAccount &&
+            selectedTransactionAccount.map((trans, index) => {
               return (
                 <div className="transRow" key={`transaction${index}`}>
-                  <label>{tr.lastUpdate}</label>
+                  <label>{trans.date}</label>
+                  <label>{trans.time}</label>
                   <label
                     style={{
                       color:
-                        tr.state > 0 || tr.state === "פתיחת חשבון"
+                        trans.type === "deposit" ||
+                        trans.recipient === selectIdAccount.current.value ||
+                        trans.type === "credit"
                           ? "green"
                           : "red",
                       width: "50%",
                       textAlign: "center",
                     }}
                   >
-                    {tr.state}
+                    {trans.amount}
                   </label>
                 </div>
               );
