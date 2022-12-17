@@ -10,9 +10,10 @@ import cors from "cors";
 const PORT = process.env.PORT || 5001;
 // changed
 const app = express();
-app.use(cors({ credentials: true }));
 
 app.use(express.json());
+// app.use(cors({ credentials: true }));
+app.use(cors());
 
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
