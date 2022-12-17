@@ -14,8 +14,7 @@ export default function AddUser({ data, setMessage, setData }) {
       console.log(user);
       setMessage({ status: false, text: "" });
       const newUser = await axios.post(
-        "https://ashgolan-bankapi.onrender.com/api/users",
-        user
+        "http://ashgolan-bankapi.onrender.com/api/users"
       );
 
       setData(newUser);
