@@ -7,9 +7,16 @@ import { bankRouter } from "./routes/bank.routes.js";
 import { index } from "./utils/index.js";
 import "./db/mongoose.js";
 import cors from "cors";
-const PORT = process.env.PORT || 5001; // changed
+const PORT = process.env.PORT || 5001;
+// changed
 const app = express();
-app.use(cors({ credentials: true }));
+// app.use(cors({ credentials: true }));
+app.options(
+  "*",
+  cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 })
+);
+
+app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }));
 
 app.use(express.json());
 
