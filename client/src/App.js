@@ -1,39 +1,123 @@
-import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import Homepage from "./pages/hompage/Homepage";
-import NewUserPage from "./pages/NewUserPage/NewUserPage";
-import NewTransactionPage from "./pages/NewTransactionPage/NewTransactionPage";
-import bankData from "./context/context";
-import { useHttp } from "./hooks/use-http";
+import NavBar from "./NavBar";
+import AddUser from "./users/AddUser";
+import { Route, Routes } from "react-router-dom";
+import DepositMoney from "./accounts/DepositMoney";
+import TransferMoney from "./accounts/TransferMoney";
+import UpdateAccount from "./accounts/UpdateAccount";
+import AddAccount from "./accounts/AddAccount";
 import { useEffect, useState } from "react";
-import NewAccountPage from "./pages/newAccountPage/NewAccountPage";
+import axios from "axios";
+import Transaction from "./accounts/Transaction";
 function App() {
-  const [data, setData] = useState(null);
-
-  const { isLoading, getData } = useHttp(setData);
-
+  const [data, setData] = useState({
+    usersData: [],
+    accountsData: [],
+  });
+  const [message, setMessage] = useState({
+    status: true,
+    text: "",
+  });
   useEffect(() => {
-    getData({ url: "https://bank-api-xeyd.onrender.com/api/bank/all" });
-    // eslint-disable-next-line
+    const fetchData = async () => {
+      try {
+        setMessage({ status: false, text: "" });
+        const usersData = await axios.get(
+          "https://bank-api-xeyd.onrender.com/api/users"
+        );
+        setData((prev) => {
+          return { ...prev, usersData };
+        });
+        const accountsData = await axios.get(
+          "https://bank-api-xeyd.onrender.com/api/accounts"
+        );
+        setData((prev) => {
+          return { ...prev, accountsData };
+        });
+      } catch (e) {
+        setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
+      }
+    };
+    fetchData();
   }, []);
-
   return (
-    <div className="App">
-      {isLoading ? <p>Loading...</p> : null}
-      {data ? (
-        <bankData.Provider value={data}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Homepage setData={setData} />} />
-            <Route path="/new-user" element={<NewUserPage />} />
-            <Route path="/new-transaction" element={<NewTransactionPage />} />
-            <Route path="/new-account" element={<NewAccountPage />} />
-          </Routes>
-        </bankData.Provider>
-      ) : (
-        <p>couldnt fetch</p>
+    <div>
+      <NavBar></NavBar>
+      {message.status && (
+        <h5
+          style={{
+            fontSize: "1rem",
+            color: "brown",
+            textAlign: "center",
+            backgroundColor: "yellow",
+            width: "40%",
+            margin: "auto",
+          }}
+        >
+          {message.text}
+        </h5>
       )}
+      <Routes>
+        <Route path="/" element={<AddUser setMessage={setMessage}></AddUser>} />
+        <Route
+          path="/addUser"
+          element={
+            <AddUser
+              data={data}
+              setData={setData}
+              setMessage={setMessage}
+            ></AddUser>
+          }
+        />{" "}
+        <Route
+          path="/DepositMoney"
+          element={
+            <DepositMoney
+              setData={setData}
+              setMessage={setMessage}
+            ></DepositMoney>
+          }
+        />
+        <Route
+          path="/TransferMoney"
+          element={
+            <TransferMoney
+              setData={setData}
+              setMessage={setMessage}
+            ></TransferMoney>
+          }
+        />
+        <Route
+          path="/updateAccount"
+          element={
+            <UpdateAccount
+              data={data}
+              setData={setData}
+              setMessage={setMessage}
+            ></UpdateAccount>
+          }
+        />
+        <Route
+          path="/AddAccount"
+          element={
+            <AddAccount
+              data={data}
+              setData={setData}
+              setMessage={setMessage}
+            ></AddAccount>
+          }
+        />
+        <Route
+          path="/Transaction"
+          element={
+            <Transaction
+              data={data}
+              setData={setData}
+              setMessage={setMessage}
+            ></Transaction>
+          }
+        />
+      </Routes>
     </div>
   );
 }

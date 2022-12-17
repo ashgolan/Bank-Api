@@ -9,8 +9,8 @@ export const useHttp = (setData) => {
     try {
       const response = await fetch(configObj.url, {
         method: configObj.method ? configObj.method : "GET",
-        withCredentials: true,
-        crossorigin: true,
+        // withCredentials: true,
+        // crossorigin: true,
         mode: "cors",
         headers: configObj.headers ? configObj.headers : {},
         body: configObj.body ? JSON.stringify(configObj.body) : null,
@@ -20,6 +20,7 @@ export const useHttp = (setData) => {
       setData && setData(data);
       setIsLoading(false);
     } catch (e) {
+      console.log(e);
       setError(e.message || "something went wrong");
       setIsLoading(false);
     }

@@ -12,7 +12,7 @@ function NewAccountPage() {
     if (!newAccount) return;
     console.log(newAccount);
     getData({
-      url: "/api/accounts",
+      url: "https://bank-api-xeyd.onrender.com/api/accounts",
       method: "POST",
       body: newAccount,
       headers: {

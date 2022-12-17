@@ -1,0 +1,19 @@
+.flex-row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-row {
+  display: flex;
+}
+
+ul {
+  list-style: none;
+}
+.half-main-content {
+  width: 50%;
+}
+td,
+tr {
+  margin: 0.5rem;
+}

@@ -11,7 +11,7 @@ function NewUserPage() {
     console.log(newUser);
     if (!newUser) return;
     getData({
-      url: "/api/users",
+      url: "https://bank-api-xeyd.onrender.com/api/users",
       method: "POST",
       body: newUser,
       headers: {
