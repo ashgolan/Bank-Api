@@ -73,7 +73,7 @@ export default function TransferMoney({ setLoading, setMessage, setData }) {
         <input
           value={transferingDetails.amount}
           className="inputUserProp"
-          type="text"
+          type="number"
           placeholder="סכום ההעברה"
           onChange={(e) =>
             setTransferingDetails((prev) => {
@@ -81,7 +81,16 @@ export default function TransferMoney({ setLoading, setMessage, setData }) {
             })
           }
         />
-        <button className="inputUserProp">בצע העברה</button>
+        <button
+          disabled={
+            transferingDetails.accountNumber === "" ||
+            transferingDetails.recipient === "" ||
+            transferingDetails.amount <= 0
+          }
+          className="inputUserProp"
+        >
+          בצע העברה
+        </button>
       </form>
     </div>
   );

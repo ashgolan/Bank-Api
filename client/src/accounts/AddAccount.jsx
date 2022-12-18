@@ -100,7 +100,12 @@ export default function AddAccount({ setLoading, data, setMessage, setData }) {
           <option value="">Business</option>
         </select>
 
-        <button className="inputUserProp">אישור</button>
+        <button
+          disabled={accountData.owner === "" || accountData.Type === ""}
+          className="inputUserProp"
+        >
+          אישור
+        </button>
       </form>
     </div>
   );

@@ -60,10 +60,16 @@ export default function WithdrawMoney({ setLoading, setMessage, setData }) {
               return { ...prev, amount: e.target.value };
             })
           }
-          type="text"
+          type="number"
           placeholder="סכום המשיכה"
         />
-        <button className="deposit-input" onClick={withdraw}>
+        <button
+          disabled={
+            withdrawDetails.accountNumber === "" || withdrawDetails.amount <= 0
+          }
+          className="deposit-input"
+          onClick={withdraw}
+        >
           אישור
         </button>
       </div>

@@ -46,6 +46,7 @@ export default function AddUser({ setLoading, data, setMessage, setData }) {
           הוספת קליינט
         </label>
         <input
+          required
           className="inputUserProp"
           htmlFor=""
           placeholder="שם"
@@ -57,6 +58,7 @@ export default function AddUser({ setLoading, data, setMessage, setData }) {
           }
         ></input>
         <input
+          required
           className="inputUserProp"
           htmlFor=""
           placeholder="משפחה"
@@ -68,6 +70,7 @@ export default function AddUser({ setLoading, data, setMessage, setData }) {
           }
         ></input>
         <input
+          required
           className="inputUserProp"
           htmlFor=""
           placeholder="ת.ז"
@@ -79,6 +82,7 @@ export default function AddUser({ setLoading, data, setMessage, setData }) {
           }
         ></input>
         <input
+          required
           className="inputUserProp"
           htmlFor=""
           placeholder="מייל"

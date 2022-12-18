@@ -113,7 +113,14 @@ export default function UpdateAccount({
             });
           }}
         />
-        <button className="inputUserProp">אישור</button>
+        <button
+          disabled={
+            accountCredit.accountNumber === "" || accountCredit.amount <= 0
+          }
+          className="inputUserProp"
+        >
+          אישור
+        </button>
       </form>
     </div>
   );
