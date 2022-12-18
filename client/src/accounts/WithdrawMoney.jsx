@@ -12,7 +12,7 @@ export default function WithdrawMoney({ setLoading, setMessage, setData }) {
       setMessage({ status: false, text: "" });
       setLoading(true);
       await axios.post(
-        "http://localhost:5001/api/transactions",
+        "https://bank-api-xeyd.onrender.com/api/transactions",
         withdrawDetails
       );
 

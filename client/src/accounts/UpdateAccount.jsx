@@ -43,7 +43,10 @@ export default function UpdateAccount({
     try {
       setMessage({ status: false, text: "" });
       setLoading(true);
-      await axios.post("http://localhost:5001/api/transactions", accountCredit);
+      await axios.post(
+        "https://bank-api-xeyd.onrender.com/api/transactions",
+        accountCredit
+      );
 
       setData((prev) => {
         return {

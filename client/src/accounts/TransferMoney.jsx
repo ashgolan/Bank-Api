@@ -15,7 +15,7 @@ export default function TransferMoney({ setLoading, setMessage, setData }) {
       setLoading(true);
 
       await axios.post(
-        "http://localhost:5001/api/transactions",
+        "https://bank-api-xeyd.onrender.com/api/transactions",
         transferingDetails
       );
 
