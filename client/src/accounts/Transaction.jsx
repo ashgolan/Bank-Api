@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import "./Transaction.css";
 export default function Transaction({ data, setData, setMessage }) {

@@ -51,7 +51,7 @@ export default function AddAccount({ setLoading, data, setMessage, setData }) {
     e.preventDefault();
     const id = e.target.selectedOptions[0].value;
     console.log(data.data.users);
-    const account = data.data.users.find((acc) => acc.pasportID == id);
+    const account = data.data.users.find((acc) => acc.pasportID === +id);
     console.log(account);
 
     setAccountData({
