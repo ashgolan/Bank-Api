@@ -13,7 +13,8 @@
   position: relative;
   border-width: 3px 2px 3px 2px;
   border-style: solid dotted solid dotted;
-  border-color: #00de13 rgba(155, 252, 0, 0.3) #fff rgba(151, 107, 93, 0.3);
+  border-color: #00de13 rgba(155, 252, 0, 0.3) rgb(65, 59, 59)
+    rgba(151, 107, 93, 0.3);
   border-radius: 50%;
   box-sizing: border-box;
   animation: 1s rotate linear infinite;
@@ -25,7 +26,7 @@
   left: 0;
   position: absolute;
   border: 10px solid transparent;
-  border-bottom-color: #fff;
+  border-bottom-color: rgb(88, 79, 79);
   transform: translate(-10px, 19px) rotate(-35deg);
 }
 .loader:after {
