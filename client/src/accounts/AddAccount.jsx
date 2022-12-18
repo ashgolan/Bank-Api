@@ -1,55 +1,62 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export default function AddAccount({ data, setMessage, setData }) {
+export default function AddAccount({ setLoading, data, setMessage, setData }) {
   const [accountData, setAccountData] = useState({
-    id: "",
-    credit: "",
+    owner: "",
+    Type: "",
   });
   const addAccountHandler = async (e) => {
     e.preventDefault();
-    try {
-      setMessage({ status: false, text: "" });
 
-      axios.post(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/addAccount/${accountData.id}/${accountData.credit}`
-      );
-      const data2 = await axios.get(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/`
-      );
-      setData((prev) => {
-        return { ...prev, accountsData: data2.data };
+    try {
+      setLoading(true);
+      setMessage({ status: false, text: "" });
+      await axios.post("http://localhost:5001/api/accounts", accountData);
+
+      setAccountData({
+        owner: "",
+        Type: "",
       });
-      setMessage({ status: true, text: "חשבון נוצר בהצלחה" });
+      setData((prev) => {
+        console.log(prev);
+        return { ...prev, users: [...prev.data.accounts, accountData] };
+      });
+      setMessage({ status: true, text: "חשבון נוסף בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     } catch (e) {
       setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     }
   };
-  const ides = data.usersData.map((clientAccount, index) => {
+
+  const ides = data.data.users.map((client, index) => {
     return (
       <option
         className="inputUserProp"
         key={`${index}IDclient`}
-        value={clientAccount.IdNumber}
+        value={client.pasportID}
       >
-        {clientAccount.IdNumber}
+        {client.pasportID}
       </option>
     );
   });
   const accounHandler = (e) => {
     e.preventDefault();
     const id = e.target.selectedOptions[0].value;
-    console.log(id);
-    // const account = data.accountsData.find((acc) => acc.IdNumber === id);
+    console.log(data.data.users);
+    const account = data.data.users.find((acc) => acc.pasportID == id);
+    console.log(account);
+
     setAccountData({
       ...accountData,
-      id: id,
+      owner: account._id,
     });
   };
   return (
@@ -59,7 +66,7 @@ export default function AddAccount({ data, setMessage, setData }) {
         onSubmit={(e) => addAccountHandler(e)}
       >
         <label className=" title inputUserProp" htmlFor="">
-          פתיחת חשבון נוסף{" "}
+          פתיחת חשבון{" "}
         </label>
         <select
           className="inputUserProp"
@@ -71,27 +78,23 @@ export default function AddAccount({ data, setMessage, setData }) {
           {ides}
         </select>
 
-        {/* <input
-          value={accountData.id}
-          onChange={(e) =>
-            setAccountData((prev) => {
-              return { ...prev, id: e.target.value };
-            })
-          }
-          type="text"
-          placeholder="ת.ז"
-        /> */}
-        <input
+        <select
           className="inputUserProp"
-          value={accountData.credit}
-          onChange={(e) =>
+          defaultValue="Personal"
+          name=""
+          onChange={(e) => {
+            e.preventDefault();
+            console.log(e.target.selectedOptions[0].text);
             setAccountData((prev) => {
-              return { ...prev, credit: e.target.value };
-            })
-          }
-          type="text"
-          placeholder="מסגרת אשראי"
-        />
+              return { ...prev, Type: e.target.selectedOptions[0].text };
+            });
+          }}
+          placeholder="סוג חשבון"
+        >
+          <option value="">Personal</option>
+          <option value="">Business</option>
+        </select>
+
         <button className="inputUserProp">אישור</button>
       </form>
     </div>

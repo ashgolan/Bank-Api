@@ -12,6 +12,7 @@ export default function NavBar() {
   } else stateOfDay = "ערב טוב";
   return (
     <div className="nav-container">
+      <img className="img-logo" src="./img/logo.png" alt="" />
       <label className="stateOfDay" htmlFor="">
         <Link to={"/"}> {stateOfDay}</Link>
       </label>
@@ -21,10 +22,13 @@ export default function NavBar() {
           <li>עדכון מסגרת אשראי</li>
         </Link>
         <Link to="/AddAccount">
-          <li>פתיחת חשבון נוסף</li>
+          <li>פתיחת חשבון</li>
         </Link>
         <Link to="/TransferMoney">
           <li>העברת כספים</li>
+        </Link>
+        <Link to="/WithdrawMoney">
+          <li>משיכת כסף</li>
         </Link>
         <Link to="/DepositMoney">
           <li>הפקדת כסף</li>

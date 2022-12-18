@@ -3,7 +3,10 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  height: 80vh;
+  height: 90vh;
+  background: url("../img/background4.jpg") center center no-repeat;
+  background-size: contain;
+  background-position: bottom;
 }
 .addUser-container {
   display: flex;

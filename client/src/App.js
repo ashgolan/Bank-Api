@@ -4,6 +4,7 @@ import AddUser from "./users/AddUser";
 import { Route, Routes } from "react-router-dom";
 import DepositMoney from "./accounts/DepositMoney";
 import TransferMoney from "./accounts/TransferMoney";
+import WithdrawMoney from "./accounts/WithdrawMoney";
 import UpdateAccount from "./accounts/UpdateAccount";
 import AddAccount from "./accounts/AddAccount";
 import { useEffect, useState } from "react";
@@ -15,15 +16,20 @@ function App() {
     status: true,
     text: "",
   });
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
         setMessage({ status: false, text: "" });
+        setLoading(true);
         const allData = await axios.get(
-          "http://bank-api-xeyd.onrender.com/api/bank/all"
+          // "http://bank-api-xeyd.onrender.com/api/bank/all"
+          "http://localhost:5001/api/bank/all"
         );
         setData(allData);
+        setLoading(false);
       } catch (e) {
+        setLoading(false);
         setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
       }
     };
@@ -46,8 +52,18 @@ function App() {
           {message.text}
         </h5>
       )}
+      {loading && (
+        <div className="loading">
+          <span className="loader"></span>
+        </div>
+      )}
       <Routes>
-        <Route path="/" element={<AddUser setMessage={setMessage}></AddUser>} />
+        <Route
+          path="/"
+          element={
+            <AddUser setLoading={setLoading} setMessage={setMessage}></AddUser>
+          }
+        />
         <Route
           path="/addUser"
           element={
@@ -55,6 +71,7 @@ function App() {
               data={data}
               setData={setData}
               setMessage={setMessage}
+              setLoading={setLoading}
             ></AddUser>
           }
         />{" "}
@@ -64,6 +81,7 @@ function App() {
             <DepositMoney
               setData={setData}
               setMessage={setMessage}
+              setLoading={setLoading}
             ></DepositMoney>
           }
         />
@@ -73,6 +91,7 @@ function App() {
             <TransferMoney
               setData={setData}
               setMessage={setMessage}
+              setLoading={setLoading}
             ></TransferMoney>
           }
         />
@@ -83,6 +102,7 @@ function App() {
               data={data}
               setData={setData}
               setMessage={setMessage}
+              setLoading={setLoading}
             ></UpdateAccount>
           }
         />
@@ -90,10 +110,22 @@ function App() {
           path="/AddAccount"
           element={
             <AddAccount
+              setLoading={setLoading}
               data={data}
               setData={setData}
               setMessage={setMessage}
             ></AddAccount>
+          }
+        />
+        <Route
+          path="/WithdrawMoney"
+          element={
+            <WithdrawMoney
+              setLoading={setLoading}
+              data={data}
+              setData={setData}
+              setMessage={setMessage}
+            ></WithdrawMoney>
           }
         />
         <Route

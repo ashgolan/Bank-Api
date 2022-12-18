@@ -2,21 +2,26 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./UpdateAccount.css";
 
-export default function UpdateAccount({ data, setData, setMessage }) {
-  const [accountProps, setAccountProps] = useState({
-    id: "",
-    IdNumber: "",
-    cash: "",
-    credit: "",
+export default function UpdateAccount({
+  setLoading,
+  data,
+  setData,
+  setMessage,
+}) {
+  const [currentAccount, setCurrentAccount] = useState("");
+  const [accountCredit, setAccountCredit] = useState({
+    accountNumber: "",
+    type: "credit",
+    amount: 10000,
   });
-  const accounts = data.accountsData.map((clientAccount, index) => {
+  const accounts = data.data.accounts.map((clientAccount, index) => {
     return (
       <option
         className="inputUserProp"
         key={`${index}IDclient`}
-        value={clientAccount.id}
+        value={clientAccount._id}
       >
-        {clientAccount.id}
+        {clientAccount._id}
       </option>
     );
   });
@@ -24,11 +29,12 @@ export default function UpdateAccount({ data, setData, setMessage }) {
   const accounHandler = (e) => {
     e.preventDefault();
     const id = e.target.selectedOptions[0].value;
-    const account = data.accountsData.find((acc) => acc.id === id);
-    setAccountProps({
-      id: account.id,
-      IdNumber: account.owner,
-      cash: account.cash,
+    const account = data.data.accounts.find((acc) => acc._id === id);
+    const user = data.data.users.find((user) => user._id === account.owner);
+    setCurrentAccount(user);
+    setAccountCredit({
+      ...accountCredit,
+      accountNumber: account._id,
       credit: account.credit,
     });
   };
@@ -36,25 +42,26 @@ export default function UpdateAccount({ data, setData, setMessage }) {
     e.preventDefault();
     try {
       setMessage({ status: false, text: "" });
+      setLoading(true);
+      await axios.post("http://localhost:5001/api/transactions", accountCredit);
 
-      await axios.put(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/updateAccount/${accountProps.id}/${accountProps.credit}`
-      );
-      const accountData2 = await axios.put(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/`
-      );
       setData((prev) => {
-        return { ...prev, accountsData: accountData2.data };
+        return {
+          ...prev,
+          transactions: [...prev.data.transactions, accountCredit],
+        };
       });
       setMessage({ status: true, text: "חשבון עודכן בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     } catch (e) {
       setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     }
   };
   return (
@@ -80,36 +87,26 @@ export default function UpdateAccount({ data, setData, setMessage }) {
           className="inputUserProp"
           type="text"
           disabled
-          placeholder="מס חשבון"
-          value={accountProps.IdNumber}
+          placeholder="בעל חשבון"
+          value={
+            currentAccount && currentAccount.name + " " + currentAccount.family
+          }
           onChange={(e) =>
-            setAccountProps((prev) => {
-              return { ...prev, IdNumber: e.target.value };
+            setAccountCredit((prev) => {
+              return { ...prev, accountNumber: e.target.value };
             })
           }
         />
         <input
           className="inputUserProp"
-          type="text"
-          disabled
-          placeholder="יתרה"
-          value={accountProps.cash}
-          onChange={(e) =>
-            setAccountProps((prev) => {
-              return { ...prev, cash: e.target.value };
-            })
-          }
-        />
-        <input
-          className="inputUserProp"
-          type="text"
+          type="number"
           placeholder="אשראי"
-          value={accountProps.credit}
-          onChange={(e) =>
-            setAccountProps((prev) => {
-              return { ...prev, credit: e.target.value };
-            })
-          }
+          value={accountCredit.amount}
+          onChange={(e) => {
+            setAccountCredit((prev) => {
+              return { ...prev, amount: e.target.value };
+            });
+          }}
         />
         <button className="inputUserProp">אישור</button>
       </form>

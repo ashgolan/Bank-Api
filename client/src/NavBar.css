@@ -6,9 +6,10 @@
   flex-direction: row-reverse;
   justify-content: space-between;
 }
+
 .stateOfDay,
 .stateOfDay a {
-  flex: 1 1 30%;
+  flex: 1 1 10%;
   line-height: 10vh;
   color: whitesmoke;
   font-size: 1.5rem;
@@ -29,4 +30,8 @@
 .actions-container li {
   padding: 2%;
   cursor: pointer;
+}
+
+.actions-container li:hover {
+  color: yellow;
 }

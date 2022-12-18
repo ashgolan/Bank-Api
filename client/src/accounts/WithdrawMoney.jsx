@@ -1,28 +1,28 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./DepositMoney.css";
-export default function DepositMoney({ setLoading, setMessage, setData }) {
-  const [dipositDetails, setDipositDetails] = useState({
+export default function WithdrawMoney({ setLoading, setMessage, setData }) {
+  const [withdrawDetails, setWithdrawDetails] = useState({
     accountNumber: "",
     amount: "",
-    type: "deposit",
+    type: "withdraw",
   });
-  const deposit = async () => {
+  const withdraw = async () => {
     try {
       setMessage({ status: false, text: "" });
       setLoading(true);
       await axios.post(
         "http://localhost:5001/api/transactions",
-        dipositDetails
+        withdrawDetails
       );
 
       setData((prev) => {
         return {
           ...prev,
-          transactions: [...prev.data.transactions, dipositDetails],
+          transactions: [...prev.data.transactions, withdrawDetails],
         };
       });
-      setMessage({ status: true, text: "כסף הופקד בהצלחה" });
+      setMessage({ status: true, text: "כסף נמשך בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
@@ -39,13 +39,13 @@ export default function DepositMoney({ setLoading, setMessage, setData }) {
     <div className="container">
       <div className="depositMoney-container">
         <label className=" title inputUserProp" htmlFor="">
-          הפקדת כסף
+          משיכת כסף
         </label>
         <input
           className="deposit-input"
-          value={dipositDetails.accountNumber}
+          value={withdrawDetails.accountNumber}
           onChange={(e) =>
-            setDipositDetails((prev) => {
+            setWithdrawDetails((prev) => {
               return { ...prev, accountNumber: e.target.value };
             })
           }
@@ -54,16 +54,16 @@ export default function DepositMoney({ setLoading, setMessage, setData }) {
         />
         <input
           className="deposit-input"
-          value={dipositDetails.amount}
+          value={withdrawDetails.amount}
           onChange={(e) =>
-            setDipositDetails((prev) => {
+            setWithdrawDetails((prev) => {
               return { ...prev, amount: e.target.value };
             })
           }
           type="text"
-          placeholder="סכום ההפקדה"
+          placeholder="סכום המשיכה"
         />
-        <button className="deposit-input" onClick={deposit}>
+        <button className="deposit-input" onClick={withdraw}>
           אישור
         </button>
       </div>

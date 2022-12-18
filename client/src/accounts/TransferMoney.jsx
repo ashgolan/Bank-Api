@@ -1,40 +1,41 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export default function TransferMoney({ setMessage, setData }) {
+export default function TransferMoney({ setLoading, setMessage, setData }) {
   const [transferingDetails, setTransferingDetails] = useState({
-    client1Id: "",
-    client2Id: "",
+    accountNumber: "",
+    recipient: "",
+    type: "transfer",
     amount: "",
   });
   const transfer = async (e) => {
     e.preventDefault();
     try {
       setMessage({ status: false, text: "" });
+      setLoading(true);
 
-      await axios.get(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/transfer/${transferingDetails.client1Id}/${transferingDetails.client2Id}/${transferingDetails.amount}`
+      await axios.post(
+        "http://localhost:5001/api/transactions",
+        transferingDetails
       );
-      const data2 = await axios.get(
-        `https://ashgolan-bankapi.onrender.com/api/accounts/`
-      );
+
       setData((prev) => {
-        return { ...prev, accountsData: data2.data };
-      });
-      setTransferingDetails({
-        client1Id: "",
-        client2Id: "",
-        amount: "",
+        return {
+          ...prev,
+          transactions: [...prev.data.transactions, transferingDetails],
+        };
       });
       setMessage({ status: true, text: "כסף הועבר בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     } catch (e) {
       setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     }
   };
   return (
@@ -48,24 +49,24 @@ export default function TransferMoney({ setMessage, setData }) {
           העברת כספים
         </label>
         <input
-          value={transferingDetails.client1Id}
+          value={transferingDetails.accountNumber}
           className="inputUserProp"
           type="text"
           placeholder="מס חשבון המעביר"
           onChange={(e) =>
             setTransferingDetails((prev) => {
-              return { ...prev, client1Id: e.target.value };
+              return { ...prev, accountNumber: e.target.value };
             })
           }
         />
         <input
-          value={transferingDetails.client2Id}
+          value={transferingDetails.recipient}
           className="inputUserProp"
           type="text"
           placeholder="מס חשבון המקבל"
           onChange={(e) =>
             setTransferingDetails((prev) => {
-              return { ...prev, client2Id: e.target.value };
+              return { ...prev, recipient: e.target.value };
             })
           }
         />

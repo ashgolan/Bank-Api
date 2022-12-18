@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./AddUser.css";
-export default function AddUser({ data, setMessage, setData }) {
+export default function AddUser({ setLoading, data, setMessage, setData }) {
   const [user, setuser] = useState({
     name: "",
     family: "",
@@ -12,28 +12,31 @@ export default function AddUser({ data, setMessage, setData }) {
     e.preventDefault();
     try {
       setMessage({ status: false, text: "" });
+      setLoading(true);
       const newUser = await axios.post(
         "https://bank-api-xeyd.onrender.com/api/users",
         user
       );
-      // setData((prev) => {
-      //   return { ...prev, newUser };
-      // });
+      setData((prev) => {
+        return { ...prev, users: [...prev.data.users, newUser] };
+      });
       setuser({
         name: "",
         family: "",
         pasportID: "",
         email: "",
       });
-      setMessage({ status: true, text: "קליינט נוסף בהצלחה עם חשבון בנק חדש" });
+      setMessage({ status: true, text: "קליינט נוסף בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     } catch (e) {
       setMessage({ status: true, text: "שגיאה בקליטת נתונים" });
       setTimeout(() => {
         setMessage({ status: false, text: "" });
       }, 1500);
+      setLoading(false);
     }
   };
   return (
