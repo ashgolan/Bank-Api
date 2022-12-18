@@ -48,7 +48,12 @@ export default function Transaction({ data, setData, setMessage }) {
         {currentAccount && (
           <label
             htmlFor=""
-            style={{ textAlign: "center", color: "brown", fontWeight: "bold" }}
+            style={{
+              textAlign: "center",
+              color: "brown",
+              fontWeight: "bold",
+              marginBottom: "1%",
+            }}
           >
             {currentAccount.name + " " + currentAccount.family}
           </label>

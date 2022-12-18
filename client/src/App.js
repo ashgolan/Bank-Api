@@ -10,6 +10,7 @@ import AddAccount from "./accounts/AddAccount";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Transaction from "./accounts/Transaction";
+import Errorpage from "./Errorpage";
 function App() {
   const [data, setData] = useState(null);
   const [message, setMessage] = useState({
@@ -138,6 +139,7 @@ function App() {
             ></Transaction>
           }
         />
+        <Route path="*" element={<Errorpage></Errorpage>} />
       </Routes>
     </div>
   );
