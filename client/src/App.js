@@ -23,8 +23,8 @@ function App() {
         setMessage({ status: false, text: "" });
         setLoading(true);
         const allData = await axios.get(
-          "https://bank-api-xeyd.onrender.com/api/bank/all"
-          // "http://localhost:5001/api/bank/all"
+          // "https://bank-api-xeyd.onrender.com/api/bank/all"
+          "http://localhost:5001/api/bank/all"
         );
         setData(allData);
         setLoading(false);
