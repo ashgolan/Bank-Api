@@ -12,7 +12,10 @@ export default function AddAccount({ setLoading, data, setMessage, setData }) {
     try {
       setLoading(true);
       setMessage({ status: false, text: "" });
-      await axios.post("http://localhost:5001/api/accounts", accountData);
+      await axios.post(
+        "https://bank-api-xeyd.onrender.com/api/accounts",
+        accountData
+      );
 
       setAccountData({
         owner: "",
