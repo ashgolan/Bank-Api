@@ -4,7 +4,7 @@ import React, { useState } from "react";
 export default function AddAccount({ setLoading, data, setMessage, setData }) {
   const [accountData, setAccountData] = useState({
     owner: "",
-    Type: "",
+    Type: "Personal",
   });
   const addAccountHandler = async (e) => {
     e.preventDefault();
