@@ -77,7 +77,9 @@ export default function AddAccount({ setLoading, data, setMessage, setData }) {
           name=""
           id=""
         >
-          <option defaultValue="בחר לפי ת.ז">בחר לפי ת.ז</option>
+          <option selected disabled defaultValue="בחר לפי ת.ז">
+            בחר לפי ת.ז
+          </option>
           {ides}
         </select>
 

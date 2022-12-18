@@ -83,7 +83,9 @@ export default function UpdateAccount({
           id=""
           className="inputUserProp"
         >
-          <option defaultValue="בחר חשבון">בחר חשבון</option>
+          <option selected disabled defaultValue="בחר חשבון">
+            בחר חשבון
+          </option>
           {accounts}
         </select>
         <input

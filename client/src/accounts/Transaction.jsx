@@ -40,7 +40,7 @@ export default function Transaction({ data, setData, setMessage }) {
           id=""
           ref={selectIdAccount}
         >
-          <option selected defaultValue="בחר חשבון">
+          <option disabled selected defaultValue="בחר חשבון">
             בחר חשבון
           </option>
           {accounts}
